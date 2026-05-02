@@ -64,7 +64,6 @@ function podman-chroot-no-tty(){
   set -euo pipefail
   local command="$1"
   podman run --rm -i --privileged \
-    --no-hostname --no-hosts \
     --security-opt label=type:unconfined_t \
     --tmpfs /tmp:rw \
     --tmpfs /run:rw \
@@ -86,6 +85,8 @@ function custom_pre_hooks(){
   # Installs a linux kernel with device firmware. This is important if your image doesn't include a kernel, which the official Arch Linux docker image does not.
   #podman-chroot 'mkdir -p /etc/mkinitcpio.d && touch /etc/mkinitcpio.d/linux.preset && \
   #  pacman -Sy --needed --noconfirm linux linux-firmware && rm -f /boot/*'
+
+  podman-chroot 'bash /app/ctr-pre-hooks.sh'
 
   github-step-end
 }
