@@ -11,7 +11,3 @@ tee -a /etc/gdm/custom.conf <<EOL
 AutomaticLoginEnable=True
 AutomaticLogin=liveuser
 EOL
-
-# Install zenity for dialogs (this should probably be in Apollo proper)
-pacman -S --noconfirm \
-    zenity
