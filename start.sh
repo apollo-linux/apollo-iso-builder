@@ -86,8 +86,6 @@ function custom_pre_hooks(){
   #podman-chroot 'mkdir -p /etc/mkinitcpio.d && touch /etc/mkinitcpio.d/linux.preset && \
   #  pacman -Sy --needed --noconfirm linux linux-firmware && rm -f /boot/*'
 
-  podman-chroot 'bash /app/ctr-pre-hooks.sh'
-
   github-step-end
 }
 
@@ -97,6 +95,7 @@ function custom_post_hooks(){
 
   # This hook will run after all commands are ran.
   # Put your custom commands here.
+  podman-chroot 'bash /app/ctr-post-hooks.sh'
 
   github-step-end
 }
