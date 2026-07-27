@@ -2,7 +2,8 @@
 
 set -uexo pipefail
 
-# Commands in this script are ran in the local container image before anything else is ran. This is used to apply ISO-specific changes, such as autologin and installer setup. 
+# Commands in this script are ran in the local container image before anything else is ran. 
+# This is used to apply ISO-specific changes, such as autologin and installer setup. 
 
 # Refresh pacman database
 pacman -Sy
@@ -14,8 +15,10 @@ AutomaticLoginEnable=True
 AutomaticLogin=liveuser
 EOL
 
-# Add deps for eleven
+# Install preinstalled Flatpaks
+flatpak preinstall -y
 
+# Add deps for eleven
 sudo pacman -S --noconfirm \
     meson \
     ninja \
