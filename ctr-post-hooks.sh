@@ -5,6 +5,9 @@ set -uexo pipefail
 # Commands in this script are ran in the local container image before anything else is ran. 
 # This is used to apply ISO-specific changes, such as autologin and installer setup. 
 
+# Copy files from /app/iso_files
+rsync -rvK /app/iso_files/ /
+
 # Refresh pacman database
 pacman -Sy
 
@@ -17,6 +20,9 @@ EOL
 
 # Install preinstalled Flatpaks
 flatpak preinstall -y
+
+# Apply gschema overrides
+glib-compile-schemas --strict /usr/share/glib-2.0/schemas
 
 # Add deps for eleven
 sudo pacman -S --noconfirm \
