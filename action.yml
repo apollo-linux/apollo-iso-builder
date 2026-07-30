@@ -27,7 +27,7 @@ runs:
     - name: Move ISO
       id: move-iso
       run: |
-        ISO_FILE=$(find "${{ github.action_path }}"/out -name "*.iso" -type f -print -quit)
+        ISO_FILE=$(find "${{ github.action_path }}"/out/ -name "*.iso" -type f -print -quit)
         if [ -z "$ISO_FILE" ]; then
           echo "::error::Error: No ISO file found in out/ directory."
           exit 1
