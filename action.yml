@@ -20,11 +20,9 @@ runs:
   steps:
     - name: Build ISO
       run: |
-        sudo bash ${{ github.action_path }}/start.sh
+        sudo bash SQUASHFS_CTR_IMG=${{ inputs.container-image }} ${{ github.action_path }}/start.sh
       shell:
         bash
-      env:
-        SQUASHFS_CTR_IMG: ${{ inputs.container-image }}
 
     - name: Move ISO
       id: move-iso
