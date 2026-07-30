@@ -20,9 +20,10 @@ runs:
   steps:
     - name: Build ISO
       run: |
-        ${{ github.action_path }}/start.sh
+        tee "SQUASHFS_CTR_IMG="ghcr.io/bootcrew/${{ inputs.container-image }}:latest""" -a ${{ github.action_path }}/config.sh
+        sudo ${{ github.action_path }}/start.sh
       shell:
-        sudo bash {0}
+        bash
       env:
         SQUASHFS_CTR_IMG: ${{ inputs.container-image }}
 
