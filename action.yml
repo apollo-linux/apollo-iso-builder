@@ -22,7 +22,7 @@ runs:
       run: |
         ${{ github.action_path }}/start.sh
       shell:
-        sudo bash
+        sudo bash {0}
       env:
         SQUASHFS_CTR_IMG: ${{ inputs.container-image }}
 
