@@ -3,6 +3,7 @@
 _SCRIPTDIR=$(dirname "$0")
 [ -f $_SCRIPTDIR/config.sh ] && source $_SCRIPTDIR/config.sh
 SQUASHFS_CTR_IMG=${1:-$SQUASHFS_CTR_IMG}
+OUTPUT_DIR=${2:-"./out"}
 
 if [ "$EUID" -ne 0 ]; then
   echo "This script must be ran as root."
@@ -209,7 +210,7 @@ github-step-end
 custom_post_hooks
 
 # Build the iso
-[ -d ./out ] || mkdir ./out && \
+[ -d "${SQUASHFS_CTR_IMG}" ] || mkdir "${SQUASHFS_CTR_IMG}" && \
 podman run \
     --rm \
     -it \
@@ -220,6 +221,6 @@ podman run \
     --env SQUASHFS_CTR_IMAGE_MOUNTPOINT="${SQUASHFS_CTR_IMAGE_MOUNTPOINT}" \
     -v "$_SCRIPTDIR"/grub.cfg:/grub.cfg:ro \
     -v "$_SCRIPTDIR"/build_iso.sh:/build_iso.sh:ro \
-    -v ./out:/out \
+    -v "${SQUASHFS_CTR_IMG}":/out \
     -v "${SQUASHFS_CTR_IMAGE_MOUNTPOINT}":/rootfs \
     quay.io/fedora/fedora:42 /build_iso.sh

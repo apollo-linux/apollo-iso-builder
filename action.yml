@@ -20,11 +20,11 @@ runs:
   steps:
     - name: Build ISO
       run: |
-        sudo ${{ github.action_path }}/start.sh ${{ inputs.container-image }}
+        sudo ${{ github.action_path }}/start.sh ${{ inputs.container-image }} ${{ github.action_path }}/out/
         
-        sudo mkdir -p "$(dirname ${{ inputs.iso-path }})"
-        sudo mv ${{ github.action_path }}/out/cuckoo.iso "${{ inputs.iso-path }}"
-        sudo echo "iso-path=$(realpath ${{ inputs.iso-path }})" >> $GITHUB_OUTPUT
+        mkdir -p "$(dirname ${{ inputs.iso-path }})"
+        mv ${{ github.action_path }}/out/cuckoo.iso "${{ inputs.iso-path }}"
+        echo "iso-path=$(realpath ${{ inputs.iso-path }})" >> $GITHUB_OUTPUT
       shell:
         bash
 
