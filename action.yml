@@ -21,19 +21,10 @@ runs:
     - name: Build ISO
       run: |
         sudo ${{ github.action_path }}/start.sh ${{ inputs.container-image }}
+        
+        mkdir -p "$(dirname ${{ inputs.iso-path }})"
+        mv ${{ github.action_path }}/out/cuckoo.iso "${{ inputs.iso-path }}"
+        echo "iso-path=$(realpath ${{ inputs.iso-path }})" >> $GITHUB_OUTPUT
       shell:
         bash
 
-    - name: Move ISO
-      id: move-iso
-      run: |
-        ISO_FILE=$(find "${{ github.action_path }}"/out/ -name "*.iso" -type f -print -quit)
-        if [ -z "$ISO_FILE" ]; then
-          echo "::error::Error: No ISO file found in out/ directory."
-          exit 1
-        fi
-        mkdir -p "$(dirname ${{ inputs.iso-path }})"
-        mv "$ISO_FILE" "${{ inputs.iso-path }}"
-        echo "ISO moved to ${{ inputs.iso-path }}"
-        echo "iso-path=$(realpath ${{ inputs.iso-path }})" >> $GITHUB_OUTPUT
-      shell: bash
