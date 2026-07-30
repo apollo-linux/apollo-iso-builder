@@ -13,12 +13,13 @@ inputs:
 outputs:
   iso-path:
     description: "Path to the resulting ISO file"
-    value: ${{ steps.move-iso.outputs.iso-path }}
+    value: ${{ steps.build-iso.outputs.iso-path }}
 
 runs:
   using: "composite"
   steps:
     - name: Build ISO
+      id: build-iso
       run: |
         sudo ${{ github.action_path }}/start.sh ${{ inputs.container-image }} ${{ github.action_path }}/out/
         
