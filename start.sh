@@ -210,7 +210,7 @@ github-step-end
 custom_post_hooks
 
 # Build the iso
-[ -d "${SQUASHFS_CTR_IMG}" ] || mkdir "${SQUASHFS_CTR_IMG}" && \
+[ -d "${OUTPUT_DIR}" ] || mkdir -p "${OUTPUT_DIR}" && \
 podman run \
     --rm \
     -it \
@@ -221,6 +221,6 @@ podman run \
     --env SQUASHFS_CTR_IMAGE_MOUNTPOINT="${SQUASHFS_CTR_IMAGE_MOUNTPOINT}" \
     -v "$_SCRIPTDIR"/grub.cfg:/grub.cfg:ro \
     -v "$_SCRIPTDIR"/build_iso.sh:/build_iso.sh:ro \
-    -v "${SQUASHFS_CTR_IMG}":/out \
+    -v "${OUTPUT_DIR}":/out \
     -v "${SQUASHFS_CTR_IMAGE_MOUNTPOINT}":/rootfs \
     quay.io/fedora/fedora:42 /build_iso.sh
