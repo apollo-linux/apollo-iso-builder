@@ -24,8 +24,6 @@ runs:
         sudo ${{ github.action_path }}/start.sh
       shell:
         bash
-      env:
-        SQUASHFS_CTR_IMG: ${{ inputs.container-image }}
 
     - name: Move ISO
       id: move-iso
