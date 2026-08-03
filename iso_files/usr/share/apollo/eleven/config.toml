@@ -1,3 +1,12 @@
 [info]
 os_name = "Apollo"
 experimental = true
+
+[disks]
+filesystem = "btrfs"
+efi_size = "2G"
+
+[bootc]
+target_image = "ghcr.io/apollo-linux/apollo:latest"
+use_composefs = true
+source = "registry"
