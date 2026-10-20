@@ -193,6 +193,8 @@ podman-chroot 'kver=$(find /usr/lib/modules -maxdepth 1 -printf "%P" | head -1) 
     --reproducible \
     --no-hostonly \
     --no-hostonly-cmdline \
+    --filesystems "iso9660 vfat" \
+    --force-drivers "usb_storage uas xhci_pci ahci" \
     --add "dmsquash-live dmsquash-live-autooverlay" \
     --force \
     /live-initramfs.img'
